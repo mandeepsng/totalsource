@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreUserRequest;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Http\Response;
@@ -18,34 +19,8 @@ use Illuminate\Validation\ValidationException;
 
 class RegisterController extends Controller
 {
-    //
-//    public function __invoke()
-//    {
-//        request()->validate([
-//            'name' => ['required', 'string', 'max:255'],
-//            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-//            'password' => ['required', 'confirmed'],
-//        ]);
-//        $user = User::create([
-//            'name' => \request('name'),
-//            'email' => \request('email'),
-//            'password' => Hash::make(request('password')),
-//        ]);
-//        Auth::guard('web')->login($user);
-//    }
-
-     public function register(Request $request)
+     public function register(StoreUserRequest $request)
      {
-
-         $all = $request->all();
-         $validate =  request()->validate([
-             'first_name' => ['required', 'string', 'max:255'],
-             'last_name' => ['required', 'string', 'max:255'],
-             'role' => ['required'],
-             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-             'password' => ['required', 'confirmed'],
-         ]);
-
          $user = User::create([
              'first_name' => request('first_name'),
              'last_name' => request('last_name'),
