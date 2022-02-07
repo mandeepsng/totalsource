@@ -19,6 +19,7 @@ use Illuminate\Validation\ValidationException;
 
 class RegisterController extends Controller
 {
+
      public function register(StoreUserRequest $request)
      {
          $user = User::create([
@@ -33,5 +34,26 @@ class RegisterController extends Controller
              return response()->json(['success' => 'User created Successfully !']);
          }
      }
+
+    public function process_login(Request $request)
+        {
+            $request->validate([
+                'email' => 'required',
+                'password' => 'required'
+            ]);
+
+            $credentials = $request->except(['_token']);
+
+            $user = User::where('email',$request->email)->first();
+
+            if (auth()->attempt($credentials)) {
+
+                return response()->json(['success' => 'Login Success !']);
+
+            }else{
+
+                return response()->json(['message' => 'Invalid credentials']);
+            }
+        }
 
 }

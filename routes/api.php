@@ -24,3 +24,6 @@ Route::get('/users', [ UserController::class, 'all_users' ]);
 // auth
 Route::post('/register',[RegisterController::class, 'register' ]);
 
+Route::post('/login', [ RegisterController::class, 'process_login' ] );
+
+
