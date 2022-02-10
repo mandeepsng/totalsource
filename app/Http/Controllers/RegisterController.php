@@ -48,11 +48,11 @@ class RegisterController extends Controller
 
             if (auth()->attempt($credentials)) {
 
-                return response()->json(['success' => 'Login Success !']);
+                return response()->json(['success' => 'Login Success !', 'auth' => 'done', 'user' => $user ]);
 
             }else{
 
-                return response()->json(['message' => 'Invalid credentials']);
+                return response()->json(['message' => 'Invalid credentials', 'auth' =>'fail' ]);
             }
         }
 

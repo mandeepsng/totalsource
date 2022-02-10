@@ -3,7 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\{ UserController, RegisterController };
+use App\Http\Controllers\{ UserController, RegisterController , JobsController };
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -25,5 +25,9 @@ Route::get('/users', [ UserController::class, 'all_users' ]);
 Route::post('/register',[RegisterController::class, 'register' ]);
 
 Route::post('/login', [ RegisterController::class, 'process_login' ] );
+
+Route::get('job_listing',[JobsController::class, 'index']);
+
+Route::post('/job_store',[JobsController::class, 'store']);
 
 
