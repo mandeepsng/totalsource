@@ -31,6 +31,9 @@ class StoreJobsRequest extends FormRequest
             'type' => 'required',
             'budget' => ['required'],
             'description' => ['required'],
+            'expected_duration' => ['required'],
+            'skill_ids' => ['required'],
+            'hiring_client_id' => ['required'],
         ];
     }
 

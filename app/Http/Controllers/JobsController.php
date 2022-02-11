@@ -40,9 +40,25 @@ class JobsController extends Controller
     {
         $data = $request->all();
 
+        $jobs = Jobs::create([
+            'name' => request('name'),
+            'location' => request('location'),
+            'type' => request('type'),
+            'salary' => request('budget'),
+            'description' => request('description'),
+            'expected_duration' => request('expected_duration'),
+            'skill_ids' => request('skill_ids'),
+            'hiring_client_id' => request('hiring_client_id'),
+        ]);
 
+        if($data){
+            return response()->json(['success',  'Jobs Created Successfully.']);
+        }else{
 
-        return response()->json(['data' => $data]);
+            return response()->json(['data' => request('name')]);
+
+        }
+
     }
 
     /**
