@@ -30,4 +30,7 @@ Route::get('job_listing',[JobsController::class, 'index']);
 
 Route::post('/job_store',[JobsController::class, 'store']);
 
+Route::post('/get_company',[\App\Http\Controllers\CompanyController::class, 'get_company_data' ] );
+Route::post('/update_company_profile',[\App\Http\Controllers\CompanyController::class, 'update_company_profile' ] );
+
 

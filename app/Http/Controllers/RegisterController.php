@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreUserRequest;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Company;
 use Illuminate\Http\Response;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -30,6 +31,16 @@ class RegisterController extends Controller
              'password' => Hash::make(request('password')),
          ]);
 
+        if(request('role') == 2){
+            $company = new Company;
+            $company->about = "";
+            $company->contact = "";
+            $company->user_account_id = $user->id;
+            $company->location = "UK";
+            $company->website = "";
+            $user->company()->save($company);
+        }
+
          if($user){
              return response()->json(['success' => 'User created Successfully !']);
          }
@@ -37,6 +48,7 @@ class RegisterController extends Controller
 
     public function process_login(Request $request)
         {
+
             $request->validate([
                 'email' => 'required',
                 'password' => 'required'
