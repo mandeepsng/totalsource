@@ -105,4 +105,12 @@ class JobsController extends Controller
     {
         //
     }
+
+    public function getClientJobPost(Request $request)
+    {
+        $alljobs = Jobs::where('hiring_client_id', '=', $request->id)->get();
+
+        return response()->json(['alljobs'=> $alljobs]);
+    }
+
 }
