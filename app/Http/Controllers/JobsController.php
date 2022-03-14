@@ -67,9 +67,11 @@ class JobsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show_job_by_id(Request $request)
     {
-        //
+        $alljobs = Jobs::where('id', '=', $request->id)->get();
+
+        return response()->json(['alljobs'=> $alljobs]);
     }
 
     /**
@@ -90,9 +92,40 @@ class JobsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update_job_by_id(Request $request)
     {
-        //
+        $data = $request->all();
+//        dd($data);
+//        $jobs = Jobs::update([
+//            'name' => request('name'),
+//            'location' => request('location'),
+//            'type' => request('type'),
+//            'salary' => request('budget'),
+//            'description' => request('description'),
+//            'expected_duration' => request('expected_duration'),
+//            'skill_ids' => request('skill_ids'),
+//        ])->where('id', request('id'));
+        $job = Jobs::find(request('id'));
+
+        $job->name = request('name');
+        $job->location = request('location');
+        $job->type = request('type');
+        $job->salary = request('budget');
+        $job->description = request('description');
+        $job->expected_duration = request('expected_duration');
+        $job->skill_ids = request('skill_ids');
+        $job->save();
+
+
+//        dd($job);
+
+        if($job->save()){
+            return response()->json(['success',  'Jobs Updated Successfully!!']);
+        }else{
+
+            return response()->json(['data' => request('name')]);
+
+        }
     }
 
     /**
@@ -112,5 +145,7 @@ class JobsController extends Controller
 
         return response()->json(['alljobs'=> $alljobs]);
     }
+
+
 
 }
