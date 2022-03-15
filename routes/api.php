@@ -30,6 +30,8 @@ Route::get('job_listing',[JobsController::class, 'index']);
 Route::post('get_client_job_post',[JobsController::class, 'getClientJobPost']);
 Route::post('show_job_by_id',[JobsController::class, 'show_job_by_id']);
 Route::post('update_job_by_id',[JobsController::class, 'update_job_by_id']);
+Route::post('jobPostDestroyById',[JobsController::class, 'jobPostDestroyById']);
+Route::post('jobsCount',[JobsController::class, 'jobsCount']);
 
 Route::post('/job_store',[JobsController::class, 'store']);
 

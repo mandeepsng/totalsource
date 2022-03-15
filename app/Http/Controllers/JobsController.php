@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 Use App\Models\Jobs;
 use App\Models\User;
 use App\Http\Requests\StoreJobsRequest;
+use Illuminate\Support\Facades\Mail;
 
 class JobsController extends Controller
 {
@@ -52,6 +53,12 @@ class JobsController extends Controller
         ]);
 
         if($data){
+            $emailto = 'vobawi6676@tonaeto.com';
+            Mail::send('emails.verifyemail', $maildata, function ($message) use ($form_name, $emailto) {
+                $message->to($emailto, '')->subject('Registration Successfull! ' . $form_name);
+                $message->from($this->form_email_address, 'HelloClinic');
+            });
+
             return response()->json(['success',  'Jobs Created Successfully.']);
         }else{
 
@@ -134,9 +141,15 @@ class JobsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function jobPostDestroyById(Request $request)
     {
-        //
+        $id = request('id');
+        $job = jobs::find($id);
+        if($job->delete()){
+            return response()->json(['message',  'Jobs Delete Successfully!!']);
+        }else{
+            return response()->json(['message',  'something went wrong']);
+        }
     }
 
     public function getClientJobPost(Request $request)
@@ -144,6 +157,13 @@ class JobsController extends Controller
         $alljobs = Jobs::where('hiring_client_id', '=', $request->id)->get();
 
         return response()->json(['alljobs'=> $alljobs]);
+    }
+
+    public function jobsCount(Request $request)
+    {
+        $alljobs = Jobs::where('hiring_client_id', '=', $request->id)->get()->count();
+        return response()->json(['totaljobs'=> $alljobs]);
+
     }
 
 
