@@ -3,7 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\{ UserController, RegisterController , JobsController };
+use App\Http\Controllers\{ UserController, RegisterController , JobsController, MediaUploadController };
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -32,6 +32,10 @@ Route::post('show_job_by_id',[JobsController::class, 'show_job_by_id']);
 Route::post('update_job_by_id',[JobsController::class, 'update_job_by_id']);
 Route::post('jobPostDestroyById',[JobsController::class, 'jobPostDestroyById']);
 Route::post('jobsCount',[JobsController::class, 'jobsCount']);
+Route::post('sendEmail',[JobsController::class, 'sendEmail']);
+
+// images upload
+Route::post('profileImageInsert',[MediaUploadController::class, 'profileImageInsert']);
 
 Route::post('/job_store',[JobsController::class, 'store']);
 

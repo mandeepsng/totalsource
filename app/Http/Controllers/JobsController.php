@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 Use App\Models\Jobs;
 use App\Models\User;
 use App\Http\Requests\StoreJobsRequest;
-use Illuminate\Support\Facades\Mail;
+use Mail;
+use App\Http\Controllers\MediaUploadController;
 
 class JobsController extends Controller
 {
@@ -52,12 +53,12 @@ class JobsController extends Controller
             'hiring_client_id' => request('hiring_client_id'),
         ]);
 
+//        if($data){
+//            $obj = new MediaUploadController;
+//            dd($obj);
+//        }
         if($data){
-            $emailto = 'vobawi6676@tonaeto.com';
-            Mail::send('emails.verifyemail', $maildata, function ($message) use ($form_name, $emailto) {
-                $message->to($emailto, '')->subject('Registration Successfull! ' . $form_name);
-                $message->from($this->form_email_address, 'HelloClinic');
-            });
+
 
             return response()->json(['success',  'Jobs Created Successfully.']);
         }else{
@@ -164,6 +165,18 @@ class JobsController extends Controller
         $alljobs = Jobs::where('hiring_client_id', '=', $request->id)->get()->count();
         return response()->json(['totaljobs'=> $alljobs]);
 
+    }
+
+    public function sendEmail(Request $request)
+    {
+        $data = array('name'=>"Mandeep Singh");
+
+        Mail::send(['text'=>'mail'], $data, function($message) {
+            $message->to('vobawi6676@tonaeto.com', 'total dfsdf')->subject
+            ('Laravel Basic Testing Mail');
+            $message->from('1mandeep2021@gmail.com','Mandeep sigh');
+        });
+        echo "Basic Email Sent. Check your inbox.";
     }
 
 
