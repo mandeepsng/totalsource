@@ -3,7 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\{ UserController, RegisterController , JobsController, MediaUploadController };
+use App\Http\Controllers\{ UserController, RegisterController , JobsController, MediaUploadController, AgencyController };
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -42,4 +42,5 @@ Route::post('/job_store',[JobsController::class, 'store']);
 Route::post('/get_company',[\App\Http\Controllers\CompanyController::class, 'get_company_data' ] );
 Route::post('/update_company_profile',[\App\Http\Controllers\CompanyController::class, 'update_company_profile' ] );
 
-
+// agency api
+Route::post('/get_agency',[AgencyController::class, 'get_agency_data' ] );

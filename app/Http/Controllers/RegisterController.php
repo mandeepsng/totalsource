@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUserRequest;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Company;
+use App\Models\Agency;
 use Illuminate\Http\Response;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -39,6 +41,14 @@ class RegisterController extends Controller
             $company->location = "UK";
             $company->website = "";
             $user->company()->save($company);
+        }
+
+        if(request('role') == 4 ){
+            $agency = new Agency;
+            $agency->contact = "";
+            $agency->user_account_id = $user->id;
+            $agency->location = request('location');
+            $user->agency()->save($agency);
         }
 
          if($user){
