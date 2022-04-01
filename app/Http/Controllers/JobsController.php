@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Company;
 use Illuminate\Http\Request;
 Use App\Models\Jobs;
 use App\Models\User;
@@ -42,6 +43,11 @@ class JobsController extends Controller
     {
         $data = $request->all();
 
+        $company_name = company::getCompanyNameById($request->hiring_client_id);
+        if($company_name == null){
+            $company_name = "unknown";
+        }
+
         $jobs = Jobs::create([
             'name' => request('name'),
             'location' => request('location'),
@@ -51,7 +57,9 @@ class JobsController extends Controller
             'expected_duration' => request('expected_duration'),
             'skill_ids' => request('skill_ids'),
             'hiring_client_id' => request('hiring_client_id'),
+            'company_name' => $company_name,
         ]);
+
 
 //        if($data){
 //            $obj = new MediaUploadController;
@@ -78,8 +86,8 @@ class JobsController extends Controller
     public function show_job_by_id(Request $request)
     {
         $alljobs = Jobs::where('id', '=', $request->id)->get();
-
-        return response()->json(['alljobs'=> $alljobs]);
+        $company_name = company::getCompanyNameById($alljobs[0]->hiring_client_id);
+        return response()->json(['alljobs'=> $alljobs, 'company_name' => $company_name ]);
     }
 
     /**

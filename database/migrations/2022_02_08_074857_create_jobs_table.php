@@ -19,6 +19,7 @@ class CreateJobsTable extends Migration
             $table->string('location');
             $table->string('type');
             $table->string('salary');
+            $table->string('company_name');
             $table->integer('hiring_client_id');
             $table->longText('description');
             $table->string('expected_duration');

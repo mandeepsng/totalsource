@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Company;
 use App\Models\Agency;
+use App\Models\Freelancer;
 use Illuminate\Http\Response;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -43,13 +44,20 @@ class RegisterController extends Controller
             $user->company()->save($company);
         }
 
-        if(request('role') == 4 ){
-            $agency = new Agency;
-            $agency->contact = "";
-            $agency->user_account_id = $user->id;
-            $agency->location = request('location');
-            $user->agency()->save($agency);
-        }
+         if(request('role') == 4 ){
+             $agency = new Agency;
+             $agency->contact = "";
+             $agency->user_account_id = $user->id;
+             $agency->location = request('location');
+             $user->agency()->save($agency);
+         }
+         if(request('role') == 3 ){
+             $agency = new Freelancer();
+             $agency->contact = "";
+             $agency->user_account_id = $user->id;
+             $agency->location = request('location');
+             $user->agency()->save($agency);
+         }
 
          if($user){
              return response()->json(['success' => 'User created Successfully !']);

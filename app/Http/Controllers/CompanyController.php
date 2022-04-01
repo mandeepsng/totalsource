@@ -25,6 +25,7 @@ class CompanyController extends Controller
             'contact' => 'required',
             'about' => 'required',
             'website' => 'required',
+            'company_name' => 'required',
         ]);
 
         $user = User::find($request->id);
@@ -35,6 +36,7 @@ class CompanyController extends Controller
         $user->company->about = request('about');
         $user->company->contact = request('contact');
         $user->company->website = request('website');
+        $user->company->company_name = request('company_name');
         $user->save();
         $user->company->save();
 

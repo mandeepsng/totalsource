@@ -10,12 +10,13 @@ class Jobs extends Model
 {
     use HasFactory;
     protected $table = 'jobs';
-    protected $fillable = ['name', 'location', 'type', 'salary', 'description', 'expected_duration', 'hiring_client_id', 'skill_ids'];
+    protected $fillable = ['name', 'location', 'type', 'salary', 'description', 'expected_duration', 'hiring_client_id', 'skill_ids', 'company_name'];
 
 
     static function get_client_posted_jobs($id)
     {
         return self::where('hiring_client_id', '=', $id)->get();
     }
+
 
 }

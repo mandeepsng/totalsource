@@ -9,11 +9,17 @@ class Company extends Model
 {
     use HasFactory;
     protected $table = 'company';
-    protected $fillable = ['about', 'contact', 'user_account_id', 'location'];
+    protected $fillable = ['about', 'contact', 'user_account_id', 'location', 'company_name'];
 
     public function user()
     {
         return $this->belongsTo('App\Models\User');
+    }
+
+    static function getCompanyNameById($id)
+    {
+        $company = self::find($id)->get();
+        return $company[0]->company_name;
     }
 
 }

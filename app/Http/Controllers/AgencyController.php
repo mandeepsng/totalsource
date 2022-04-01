@@ -91,4 +91,33 @@ class AgencyController extends Controller
 
         return response()->json(['user'=> $user]);
     }
+
+
+    public function update_agency_profile(Request $request)
+    {
+        $request->validate([
+            'id' => 'required',
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'contact' => 'required',
+            'about' => 'required',
+            'website' => 'required',
+        ]);
+
+        $user = User::find($request->id);
+        $user->agency;
+
+        $user->first_name = request('first_name');
+        $user->last_name = request('last_name');
+        $user->agency->about = request('about');
+        $user->agency->contact = request('contact');
+        $user->agency->agency_website = request('website');
+        $user->save();
+        $user->agency->save();
+
+        if($user){
+            return response()->json(['success' => 'Profile updated Successfully !']);
+        }
+        return response()->json(['error' => 'something went wrong !']);
+    }
 }
