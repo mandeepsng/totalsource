@@ -5,6 +5,7 @@ namespace App\Models;
 use http\Env\Request;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Proposal;
 
 class Jobs extends Model
 {
@@ -16,6 +17,11 @@ class Jobs extends Model
     static function get_client_posted_jobs($id)
     {
         return self::where('hiring_client_id', '=', $id)->get();
+    }
+
+    public function proposal()
+    {
+        return $this->hasMany('App\Models\Proposal');
     }
 
 

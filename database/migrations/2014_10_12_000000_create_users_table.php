@@ -27,7 +27,7 @@ class CreateUsersTable extends Migration
             $table->string('last_name');
             $table->text('image')->nullable();
             $table->string('email')->unique();
-            $table->integer('role');
+            $table->integer('role')->comment('roles => admin = 1, client = 2, freelancer = 3, agency = 4');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

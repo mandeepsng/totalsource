@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use http\Env\Request;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -61,4 +62,11 @@ class User extends Authenticatable
         return $this->hasOne('App\Models\Freelancer');
     }
 
+
+    static function getUserName($id)
+    {
+        $res = self::find($id)->get();
+        $name = $res[0]->first_name." ".$res[0]->last_name;
+        return $name;
+    }
 }

@@ -41,6 +41,7 @@ class RegisterController extends Controller
             $company->user_account_id = $user->id;
             $company->location = "UK";
             $company->website = "";
+            $company->company_name = "Unknown";
             $user->company()->save($company);
         }
 

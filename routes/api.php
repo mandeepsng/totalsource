@@ -3,7 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\{ UserController, RegisterController , JobsController, MediaUploadController, AgencyController, FreelancerController };
+use App\Http\Controllers\{ UserController, RegisterController , JobsController, MediaUploadController, AgencyController, FreelancerController, ProposalController };
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -28,7 +28,12 @@ Route::post('/login', [ RegisterController::class, 'process_login' ] );
 
 Route::get('job_listing',[JobsController::class, 'index']);
 Route::post('get_client_job_post',[JobsController::class, 'getClientJobPost']);
+Route::get('get_client_job_post/{id}',[JobsController::class, 'getClientJobPostById']);
 Route::post('show_job_by_id',[JobsController::class, 'show_job_by_id']);
+Route::post('client_job_view_by_id',[JobsController::class, 'clientJobViewById']);
+
+Route::get('client_job_view/{id}',[JobsController::class, 'clientJobViewById']);
+
 Route::post('update_job_by_id',[JobsController::class, 'update_job_by_id']);
 Route::post('jobPostDestroyById',[JobsController::class, 'jobPostDestroyById']);
 Route::post('jobsCount',[JobsController::class, 'jobsCount']);
@@ -51,5 +56,8 @@ Route::post('/update_agency_profile',[AgencyController::class, 'update_agency_pr
 Route::post('/get_freelancer',[FreelancerController::class, 'get_freelancer_data' ] );
 Route::post('/update_freelancer_profile',[FreelancerController::class, 'update_freelancer_profile' ] );
 
-
+// proposal
+Route::post('/store_proposal',[ProposalController::class, 'store']);
+Route::post('/get_proposal_by_id', [ProposalController::class, 'get_proposal_by_id'] );
+Route::post('/check_exit_bid_by_id', [ProposalController::class, 'check_exit_bid_by_id'] );
 
