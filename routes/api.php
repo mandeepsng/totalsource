@@ -3,7 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\{ UserController, RegisterController , JobsController, MediaUploadController, AgencyController, FreelancerController, ProposalController };
+use App\Http\Controllers\{ UserController, RegisterController , JobsController, MediaUploadController, AgencyController, FreelancerController, ProposalController, ContractController };
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -30,6 +30,7 @@ Route::get('job_listing',[JobsController::class, 'index']);
 Route::post('get_client_job_post',[JobsController::class, 'getClientJobPost']);
 Route::get('get_client_job_post/{id}',[JobsController::class, 'getClientJobPostById']);
 Route::post('show_job_by_id',[JobsController::class, 'show_job_by_id']);
+Route::get('job_view/{id}',[JobsController::class, 'jobViewById']);
 Route::post('client_job_view_by_id',[JobsController::class, 'clientJobViewById']);
 
 Route::get('client_job_view/{id}',[JobsController::class, 'clientJobViewById']);
@@ -61,3 +62,6 @@ Route::post('/store_proposal',[ProposalController::class, 'store']);
 Route::post('/get_proposal_by_id', [ProposalController::class, 'get_proposal_by_id'] );
 Route::post('/check_exit_bid_by_id', [ProposalController::class, 'check_exit_bid_by_id'] );
 
+// job
+
+Route::post('/create_contract', [JobsController::class, 'create_contract']);

@@ -6,6 +6,7 @@ use App\Models\Company;
 use Illuminate\Http\Request;
 Use App\Models\Jobs;
 use App\Models\User;
+use App\Models\Contract;
 use App\Models\Proposal;
 use App\Http\Requests\StoreJobsRequest;
 use Mail;
@@ -49,7 +50,7 @@ class JobsController extends Controller
 //            $company_name = "unknown";
 //        }
 
-//        return response()->json(['success',  $company_name]);
+//        return response()->json( $request->skill_ids );
         $jobs = Jobs::create([
             'name' => request('name'),
             'location' => request('location'),
@@ -91,6 +92,14 @@ class JobsController extends Controller
         $alljobs = Jobs::find($request->id);
         $alljobs->proposal;
 //        dd($alljobs->hiring_client_id);
+        $company_name = company::getCompanyNameById($alljobs->hiring_client_id);
+        return response()->json(['alljobs'=> $alljobs, 'company_name' => $company_name ]);
+    }
+
+    public function jobViewById($id)
+    {
+        $alljobs = Jobs::find($id);
+        $alljobs->proposal;
         $company_name = company::getCompanyNameById($alljobs->hiring_client_id);
         return response()->json(['alljobs'=> $alljobs, 'company_name' => $company_name ]);
     }
@@ -247,6 +256,46 @@ class JobsController extends Controller
             $message->from('1mandeep2021@gmail.com','Mandeep sigh');
         });
         echo "Basic Email Sent. Check your inbox.";
+    }
+
+
+
+    public function create_contract(Request $request)
+    {
+        $data = $request->all();
+        $job = Jobs::find(request('id'));
+        $job->status = '1';
+        $job->save();
+
+        $contract = new Contract;
+        $contract->jobs_id = request('id');
+        if($request->has('freelancer_id')) {
+            $contract->freelancer_id = request('freelancer_id');
+        }
+        if($request->has('proposal_id')) {
+            $contract->proposal_id = request('proposal_id');
+            $proposal = Proposal::find(request('proposal_id'));
+            $proposal->current_proposal_status = '1';
+            $proposal->save();
+        }
+
+
+        $contract->company_id = "22";
+        $contract->start_time = now();
+        $contract->end_time = now();
+        $contract->payment_type_id = "22";
+        $contract->payment_amount = "change later";
+
+        $job->contract()->save($contract);
+
+        if($job){
+            return response()->json(['success',  'Contact Created Successfully!!']);
+        }else{
+
+            return response()->json(['data' => 'Something went wrong!']);
+
+        }
+
     }
 
 

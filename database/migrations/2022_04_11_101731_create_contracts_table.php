@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProposalsTable extends Migration
+class CreateContractsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,16 @@ class CreateProposalsTable extends Migration
      */
     public function up()
     {
-        Schema::create('proposals', function (Blueprint $table) {
+        Schema::create('contracts', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('jobs_id')->unsigned();
-            $table->integer('working_user_id');
-            $table->string('proposal_time');
-            $table->string('proposal_desc');
-            $table->string('bidding_price');
-            $table->string('bidding_type')->comment('1 = fixed or 2 = hourly');
-            $table->integer('current_proposal_status')->default('0')->comment("0= not accept, 1 = bidd accepted");
+            $table->integer('proposal_id');
+            $table->integer('company_id');
+            $table->integer('freelancer_id')->comment("freelancer or agency id");
+            $table->string('start_time');
+            $table->string('end_time');
+            $table->string('payment_type_id');
+            $table->string('payment_amount');
             $table->timestamps();
             $table->foreign('jobs_id')->references('id')->on('jobs')->onDelete('cascade');
         });
@@ -34,6 +35,6 @@ class CreateProposalsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('proposals');
+        Schema::dropIfExists('contracts');
     }
 }

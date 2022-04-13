@@ -24,6 +24,7 @@ class CreateJobsTable extends Migration
             $table->longText('description');
             $table->string('expected_duration');
             $table->string('skill_ids');
+            $table->integer('status')->default('0')->comment(' 0= open , 1=closed');
             $table->timestamps();
         });
     }

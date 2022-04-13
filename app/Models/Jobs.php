@@ -24,5 +24,10 @@ class Jobs extends Model
         return $this->hasMany('App\Models\Proposal');
     }
 
+    public function contract()
+    {
+        return $this->hasOne('App\Models\Contract');
+    }
+
 
 }
