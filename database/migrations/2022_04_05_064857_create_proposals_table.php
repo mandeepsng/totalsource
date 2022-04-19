@@ -21,7 +21,7 @@ class CreateProposalsTable extends Migration
             $table->string('proposal_desc');
             $table->string('bidding_price');
             $table->string('bidding_type')->comment('1 = fixed or 2 = hourly');
-            $table->integer('current_proposal_status')->default('0')->comment("0= not accept, 1 = bidd accepted");
+            $table->string('current_proposal_status')->default('0')->comment("0= not accept, 1 = bidd accepted");
             $table->timestamps();
             $table->foreign('jobs_id')->references('id')->on('jobs')->onDelete('cascade');
         });
