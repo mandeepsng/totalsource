@@ -45,12 +45,10 @@ class JobsController extends Controller
     {
         $data = $request->all();
 
-        $company_name = company::getCompanyNameById($request->hiring_client_id);
-//        if($company_name == null){
-//            $company_name = "unknown";
-//        }
+        $company = Company::select(['company_name'])->where('user_id', $request->hiring_client_id)->first();
 
-//        return response()->json( $request->skill_ids );
+        $company_name = $company['company_name'];
+//        return response()->json( $company_name );
         $jobs = Jobs::create([
             'name' => request('name'),
             'location' => request('location'),
@@ -100,8 +98,8 @@ class JobsController extends Controller
     {
         $alljobs = Jobs::find($id);
         $alljobs->proposal;
-        $company_name = company::getCompanyNameById($alljobs->hiring_client_id);
-        return response()->json(['alljobs'=> $alljobs, 'company_name' => $company_name ]);
+//        $company_name = company::getCompanyNameById($alljobs->hiring_client_id);
+        return response()->json(['alljobs'=> $alljobs ]);
     }
 
 
