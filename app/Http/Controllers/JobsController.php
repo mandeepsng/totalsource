@@ -244,14 +244,15 @@ class JobsController extends Controller
 
     }
 
-    public function sendEmail(Request $request)
+    public function sendEmail($data)
     {
-        $data = array('name'=>"Mandeep Singh");
+//        dd($data);
+//        $data = array('name'=>"Mandeep Singh");
 
-        Mail::send(['text'=>'mail'], $data, function($message) {
-            $message->to('vobawi6676@tonaeto.com', 'total dfsdf')->subject
-            ('Laravel Basic Testing Mail');
-            $message->from('1mandeep2021@gmail.com','Mandeep sigh');
+        Mail::send('emails.verifyemail', $data, function($message) {
+            $message->to('fidasa5745@3dinews.com', 'total dfsdf')->subject
+            ('Laravel Basic Testing Mail 000');
+            $message->from('1mandeep2021@gmail.com', $message->name );
         });
         echo "Basic Email Sent. Check your inbox.";
     }

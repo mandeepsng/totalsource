@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUserRequest;
+use App\Notifications\EmailVerification;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -19,7 +20,9 @@ use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
-
+use App\Http\Controllers\JobsController;
+use Illuminate\Auth\Events\Registered;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class RegisterController extends Controller
 {
@@ -61,6 +64,34 @@ class RegisterController extends Controller
          }
 
          if($user){
+//             $newobj = new JobsController;
+//             $send_email = $newobj->sendEmail($user);
+             //send email verify to user email
+             //email details
+             //create token
+             $token = JWTAuth::fromUser($user);
+
+             //create a new activation code
+             $activationCode = $this->generateVerificationCode();
+
+             //create a new token
+             $newToken = new Token;
+             $newToken->code = $activationCode;
+             $newToken->status = 0;
+             $newToken->user_id = $user->id;
+             $newToken->save();
+
+             //email details
+             $details = [
+                 'greeting' => 'Hi'.$request->name,
+                 'body' => 'use this activation code for verify your email address',
+                 'activation_code'=>$newToken->code,
+                 'thanks' => 'thank you',
+                 'order_id' => 101
+             ];
+             Notification::send($user, new EmailVerification($details));
+
+
              return response()->json(['success' => 'User created Successfully !']);
          }
      }
@@ -79,7 +110,50 @@ class RegisterController extends Controller
 
             if (auth()->attempt($credentials)) {
 
-                return response()->json(['success' => 'Login Success !', 'auth' => 'done', 'user' => $user ]);
+                $token = $user->createToken('sdkfjds54dfsdf')->plainTextToken;
+
+                return response()->json(['success' => 'Login Success !', 'auth' => 'done', 'user' => $user, 'token' => $token ]);
+
+            }else{
+
+                return response()->json(['message' => 'Invalid credentials', 'auth' =>'fail' ]);
+            }
+        }
+
+
+        public function logout(Request $request){
+            \auth()->user()->tokens()->delete();
+
+            return [
+                'message' => 'Logged Out'
+            ];
+        }
+
+        public function login(Request $request)
+        {
+            $request->validate([
+                'email' => 'required',
+                'password' => 'required'
+            ]);
+
+            $credentials = $request->except(['_token']);
+
+            $user = User::where('email',$request->email)->first();
+
+            if (auth()->attempt($credentials)) {
+
+                $user = Auth::user();
+
+                $token = $user->createToken('sdkfjds54dfsdf')->plainTextToken;
+
+                $cookie = cookie('jwt', $token, 60*24); // 1 day
+
+                return response([
+                    'success' => 'Login Success !',
+                    'auth' => 'done',
+                    'user' => $user,
+                    'token' => $token
+                ])->withCookie($cookie);
 
             }else{
 

@@ -18,11 +18,17 @@ use App\Http\Controllers\{ UserController, RegisterController , JobsController, 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+// Protected Routes
+Route::group(['middleware' => ['auth:sanctum']], function(){
+    Route::get('/users', [ UserController::class, 'all_users' ]);
+});
 
-Route::get('/users', [ UserController::class, 'all_users' ]);
+//Route::get('/users', [ UserController::class, 'all_users' ]);
 
 // auth
 Route::post('/register',[RegisterController::class, 'register' ]);
+Route::get('email/verify', [RegisterController::class, 'register' ])->name('verification.verify');
+
 
 Route::post('/login', [ RegisterController::class, 'process_login' ] );
 

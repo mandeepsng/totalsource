@@ -30,6 +30,6 @@ class SendEmail extends Mailable
     public function build()
     {
         return $this->subject("Mail from Totallyoutsourcing")
-        ->view('view.verifyemail');
+        ->view('emails.verifyemail');
     }
 }
