@@ -64,35 +64,36 @@ class RegisterController extends Controller
          }
 
          if($user){
+             event(new Registered($user));
 //             $newobj = new JobsController;
 //             $send_email = $newobj->sendEmail($user);
              //send email verify to user email
              //email details
              //create token
-             $token = JWTAuth::fromUser($user);
+//             $token = JWTAuth::fromUser($user);
+//
+//             //create a new activation code
+//             $activationCode = $this->generateVerificationCode();
+//
+//             //create a new token
+//             $newToken = new Token;
+//             $newToken->code = $activationCode;
+//             $newToken->status = 0;
+//             $newToken->user_id = $user->id;
+//             $newToken->save();
+//
+//             //email details
+//             $details = [
+//                 'greeting' => 'Hi'.$request->name,
+//                 'body' => 'use this activation code for verify your email address',
+//                 'activation_code'=>$newToken->code,
+//                 'thanks' => 'thank you',
+//                 'order_id' => 101
+//             ];
+//             Notification::send($user, new EmailVerification($details));
+             $token = $user->createToken('authtoken')->plainTextToken;
 
-             //create a new activation code
-             $activationCode = $this->generateVerificationCode();
-
-             //create a new token
-             $newToken = new Token;
-             $newToken->code = $activationCode;
-             $newToken->status = 0;
-             $newToken->user_id = $user->id;
-             $newToken->save();
-
-             //email details
-             $details = [
-                 'greeting' => 'Hi'.$request->name,
-                 'body' => 'use this activation code for verify your email address',
-                 'activation_code'=>$newToken->code,
-                 'thanks' => 'thank you',
-                 'order_id' => 101
-             ];
-             Notification::send($user, new EmailVerification($details));
-
-
-             return response()->json(['success' => 'User created Successfully !']);
+             return response()->json(['success' => 'User created Successfully !', 'token' => $token]);
          }
      }
 
@@ -110,9 +111,10 @@ class RegisterController extends Controller
 
             if (auth()->attempt($credentials)) {
 
-                $token = $user->createToken('sdkfjds54dfsdf')->plainTextToken;
+                $token = $user->createToken('authtoken');
+//                $token = $user->createToken('authtoken')->plainTextToken;
 
-                return response()->json(['success' => 'Login Success !', 'auth' => 'done', 'user' => $user, 'token' => $token ]);
+                return response()->json(['success' => 'Login Success !', 'auth' => 'done', 'user' => $user, 'token' => $token->plainTextToken ]);
 
             }else{
 

@@ -2,8 +2,16 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
-use App\Http\Controllers\{ UserController, RegisterController , JobsController, MediaUploadController, AgencyController, FreelancerController, ProposalController, ContractController };
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use App\Http\Controllers\{UserController,
+    RegisterController,
+    JobsController,
+    MediaUploadController,
+    AgencyController,
+    FreelancerController,
+    ProposalController,
+    ContractController,
+    VerifyEmailController};
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -14,6 +22,25 @@ use App\Http\Controllers\{ UserController, RegisterController , JobsController, 
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+//Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+//    $request->fulfill();
+//
+//    return redirect('/home');
+//})->middleware(['auth', 'signed'])->name('verification.verify');
+
+
+//Route::get('/email/verify/{id}/{hash}', [VerifyEmailController::class, '__invoke'])
+//    ->middleware(['signed', 'throttle:6,1'])
+//    ->name('verification.verify');
+
+Route::get('/email/verify/{id}/{hash}', [VerifyEmailController::class, 'verify'])->name('verification.verify')->middleware('auth:sanctum');
+
+Route::post('/email/verification-notification', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+
+    return back()->with('message', 'Verification link sent!');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -27,7 +54,10 @@ Route::group(['middleware' => ['auth:sanctum']], function(){
 
 // auth
 Route::post('/register',[RegisterController::class, 'register' ]);
-Route::get('email/verify', [RegisterController::class, 'register' ])->name('verification.verify');
+//Route::get('email/verify', [RegisterController::class, 'register' ])->name('verification.verify');
+//Route::get('/email/verify', function () {
+//    return view('auth.verify-email');
+//})->middleware('auth')->name('verification.notice');
 
 
 Route::post('/login', [ RegisterController::class, 'process_login' ] );
