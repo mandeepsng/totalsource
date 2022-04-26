@@ -93,7 +93,7 @@ class RegisterController extends Controller
 //             Notification::send($user, new EmailVerification($details));
              $token = $user->createToken('authtoken')->plainTextToken;
 
-             return response()->json(['success' => 'User created Successfully !', 'token' => $token]);
+             return response()->json([ 'success' => 'User created Successfully !', 'token' => $token, 'user' => $user ]);
          }
      }
 
