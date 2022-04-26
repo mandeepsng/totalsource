@@ -15,13 +15,16 @@ class VerifyEmailController extends Controller
     {
         if ($request->user()->hasVerifiedEmail()) {
             return [
-                'message' => 'Already Verified'
+                'message' => 'Already Verified',
             ];
         }
 
+
         $request->user()->sendEmailVerificationNotification();
 
-        return ['status' => 'verification-link-sent'];
+        $token = $request->user()->createToken('resend')->plainTextToken;
+
+        return ['status' => 'verification-link-sent', 'token' => $token];
     }
 
     public function verify(EmailVerificationRequest $request)
@@ -39,6 +42,16 @@ class VerifyEmailController extends Controller
         return [
             'message'=>'Email has been verified'
         ];
+    }
+
+    public function generate_sanctum_token(Request $request)
+    {
+        $user = User::where('email', $request->email)->first();
+
+        $token = $user->createToken('resend')->plainTextToken;
+
+        return ['status' => $user, 'token' => $token];
+
     }
 
 }

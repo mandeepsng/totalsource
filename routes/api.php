@@ -36,11 +36,11 @@ use App\Http\Controllers\{UserController,
 
 Route::get('/email/verify/{id}/{hash}', [VerifyEmailController::class, 'verify'])->name('verification.verify')->middleware('auth:sanctum');
 
-Route::post('/email/verification-notification', function (Request $request) {
-    $request->user()->sendEmailVerificationNotification();
+Route::post('/new_token', [VerifyEmailController::class, 'generate_sanctum_token']);
+Route::post('email/verification-notification', [VerifyEmailController::class, 'sendVerificationEmail'])->middleware('auth:sanctum');
 
-    return back()->with('message', 'Verification link sent!');
-})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+Route::post('users/verify', [VerifyEmailController::class, 'resend']); // resend email verification
+
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
