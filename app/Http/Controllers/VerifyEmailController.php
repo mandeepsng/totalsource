@@ -16,6 +16,7 @@ class VerifyEmailController extends Controller
         if ($request->user()->hasVerifiedEmail()) {
             return [
                 'message' => 'Already Verified',
+                'val' => '1',
             ];
         }
 
@@ -47,6 +48,10 @@ class VerifyEmailController extends Controller
     public function generate_sanctum_token(Request $request)
     {
         $user = User::where('email', $request->email)->first();
+
+        if(!$user){
+            return [ 'error' => 'Email not exist' ];
+        }
 
         $token = $user->createToken('resend')->plainTextToken;
 
