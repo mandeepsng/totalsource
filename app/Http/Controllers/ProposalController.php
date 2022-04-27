@@ -120,7 +120,7 @@ class ProposalController extends Controller
     {
         $user = Proposal::select('*')->where([
             ["working_user_id", "=", $request->userId],
-            ["jobs_id", "=", $request->id]
+            ["jobs_id", "=", $request->jobId]
         ])->get();
         $count = count($user);
         return response()->json(['count' => $count ]);
