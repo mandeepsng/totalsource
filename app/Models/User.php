@@ -69,4 +69,5 @@ class User extends Authenticatable implements MustVerifyEmail
         $name = $res[0]->first_name." ".$res[0]->last_name;
         return $name;
     }
+
 }
