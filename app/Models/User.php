@@ -62,6 +62,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasOne('App\Models\Freelancer');
     }
 
+    public function portfolio()
+    {
+        return $this->hasMany('App\Models\Portfolio');
+    }
+
 
     static function getUserName($id)
     {

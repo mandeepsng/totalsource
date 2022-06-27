@@ -6,6 +6,7 @@ use App\Models\Proposal;
 use App\Models\Jobs;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Queue\Jobs\Job;
 use PHPUnit\Framework\Constraint\Count;
 
 class ProposalController extends Controller
@@ -118,12 +119,43 @@ class ProposalController extends Controller
 
     public function check_exit_bid_by_id(Request $request)
     {
+        $job = Jobs::find($request->jobId);
+        if($job->status == 1 ){
+            $hired = 1;
+        }else{
+            $hired = 0;
+        }
+
+
         $user = Proposal::select('*')->where([
             ["working_user_id", "=", $request->userId],
             ["jobs_id", "=", $request->jobId]
         ])->get();
         $count = count($user);
-        return response()->json(['count' => $count ]);
+        return response()->json(['count' => $count, 'hired' => $hired ]);
+    }
+
+
+    public function getFreelancerJobBiddById($id)
+    {
+        $ids = [];
+        $job_idsByFreelancer = Proposal::select('jobs_id')->where([
+            ["working_user_id", "=", $id],
+        ])->get();
+
+        foreach( $job_idsByFreelancer as $id ){
+            $ids[] = $id->jobs_id;
+        }
+
+        $alljobs = Jobs::find($ids);
+
+        $data = array();
+        foreach( $alljobs as $job ){
+            $proposal = jobs::find($job->id);
+            $proposal->proposal;
+            $data[]['data'] = $proposal;
+        }
+        return response()->json(['alljobs' => $data]);
     }
 
 }

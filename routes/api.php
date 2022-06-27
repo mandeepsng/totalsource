@@ -11,7 +11,9 @@ use App\Http\Controllers\{UserController,
     FreelancerController,
     ProposalController,
     ContractController,
-    VerifyEmailController};
+    VerifyEmailController,
+    PortfolioController
+};
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -22,17 +24,6 @@ use App\Http\Controllers\{UserController,
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
-//Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
-//    $request->fulfill();
-//
-//    return redirect('/home');
-//})->middleware(['auth', 'signed'])->name('verification.verify');
-
-
-//Route::get('/email/verify/{id}/{hash}', [VerifyEmailController::class, '__invoke'])
-//    ->middleware(['signed', 'throttle:6,1'])
-//    ->name('verification.verify');
 
 Route::get('/email/verify/{id}/{hash}', [VerifyEmailController::class, 'verify'])->name('verification.verify')->middleware('auth:sanctum');
 
@@ -48,17 +39,16 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // Protected Routes
 Route::group(['middleware' => ['auth:sanctum']], function(){
     Route::get('/users', [ UserController::class, 'all_users' ]);
+
+    // portfolio
+    Route::resource('portfolio', PortfolioController::class);
+
 });
 
 //Route::get('/users', [ UserController::class, 'all_users' ]);
 
 // auth
 Route::post('/register',[RegisterController::class, 'register' ]);
-//Route::get('email/verify', [RegisterController::class, 'register' ])->name('verification.verify');
-//Route::get('/email/verify', function () {
-//    return view('auth.verify-email');
-//})->middleware('auth')->name('verification.notice');
-
 
 Route::post('/login', [ RegisterController::class, 'process_login' ] );
 
@@ -92,6 +82,7 @@ Route::post('/update_agency_profile',[AgencyController::class, 'update_agency_pr
 // freelancer api
 Route::post('/get_freelancer',[FreelancerController::class, 'get_freelancer_data' ] );
 Route::post('/update_freelancer_profile',[FreelancerController::class, 'update_freelancer_profile' ] );
+Route::get('/all_bidd_of_freelancer/{id}',[ProposalController::class, 'getFreelancerJobBiddById' ] );
 
 // proposal
 Route::post('/store_proposal',[ProposalController::class, 'store']);
@@ -101,3 +92,8 @@ Route::post('/check_exit_bid_by_id', [ProposalController::class, 'check_exit_bid
 // job
 
 Route::post('/create_contract', [JobsController::class, 'create_contract']);
+//Route::get('jobhiredornot/{id}', [JobsController::class, 'jobHiredOrNot']);
+
+
+
+

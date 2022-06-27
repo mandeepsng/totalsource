@@ -109,6 +109,11 @@ class JobsController extends Controller
         $jobs = $alljobs->proposal;
         $data = [];
 
+        if($alljobs->status == 1 ){
+            $hired = 1;
+        }else{
+            $hired = 0;
+        }
 
         foreach($jobs as $k => $val){
             $freelancerName = User::getUserName($val->working_user_id);
@@ -129,7 +134,7 @@ class JobsController extends Controller
             );
         }
 
-        return response()->json(['alljobs' => $alljobs, 'proposal' => $data ]);
+        return response()->json(['alljobs' => $alljobs, 'proposal' => $data, 'hired' => $hired ]);
 
     }
 
@@ -237,6 +242,8 @@ class JobsController extends Controller
         return response()->json(['alljobs' => $data]);
     }
 
+
+
     public function jobsCount(Request $request)
     {
         $alljobs = Jobs::where('hiring_client_id', '=', $request->id)->get()->count();
@@ -295,6 +302,19 @@ class JobsController extends Controller
 
         }
 
+    }
+
+
+    public function jobHiredOrNot($id)
+    {
+        $job = Jobs::find($id);
+        if($job->status == 1 ){
+            $hired = '1';
+        }else{
+            $hired = '0';
+        }
+
+        return response()->json(['hired' => '$hired' ]);
     }
 
 
