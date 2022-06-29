@@ -21,7 +21,7 @@ class PortfolioController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $portfolio = $user->portfolio;
+        $portfolio = $user->portfolio()->paginate(10);
         return response()->json(['portfolio' => $portfolio ]);
     }
 

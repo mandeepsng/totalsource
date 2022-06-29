@@ -39,6 +39,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // Protected Routes
 Route::group(['middleware' => ['auth:sanctum']], function(){
     Route::get('/users', [ UserController::class, 'all_users' ]);
+    Route::get('get_client_job_post/{id}',[JobsController::class, 'getClientJobPostById']);
 
     // portfolio
     Route::resource('portfolio', PortfolioController::class);
@@ -53,8 +54,8 @@ Route::post('/register',[RegisterController::class, 'register' ]);
 Route::post('/login', [ RegisterController::class, 'process_login' ] );
 
 Route::get('job_listing',[JobsController::class, 'index']);
+Route::post('job_search',[JobsController::class, 'searchJobsListing']);
 Route::post('get_client_job_post',[JobsController::class, 'getClientJobPost']);
-Route::get('get_client_job_post/{id}',[JobsController::class, 'getClientJobPostById']);
 Route::post('show_job_by_id',[JobsController::class, 'show_job_by_id']);
 Route::get('job_view/{id}',[JobsController::class, 'jobViewById']);
 Route::post('client_job_view_by_id',[JobsController::class, 'clientJobViewById']);

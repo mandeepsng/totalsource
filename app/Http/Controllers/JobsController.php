@@ -21,7 +21,7 @@ class JobsController extends Controller
      */
     public function index()
     {
-        $allJobs = Jobs::all();
+        $allJobs = Jobs::paginate(10);
         return response()->json(['alljobs'=> $allJobs]);
     }
 
@@ -231,7 +231,7 @@ class JobsController extends Controller
 
     public function getClientJobPostById($id)
     {
-        $alljobs = Jobs::where('hiring_client_id', '=', $id)->get();
+        $alljobs = Jobs::where('hiring_client_id', '=', $id)->paginate(10);
 
         $data = array();
         foreach( $alljobs as $job ){
@@ -239,7 +239,7 @@ class JobsController extends Controller
             $proposal->proposal;
             $data[]['data'] = $proposal;
         }
-        return response()->json(['alljobs' => $data]);
+        return response()->json(['alljobs' => $data, 'alldata' => $alljobs]);
     }
 
 
@@ -315,6 +315,22 @@ class JobsController extends Controller
         }
 
         return response()->json(['hired' => '$hired' ]);
+    }
+
+    public function searchJobsListing(Request $request)
+    {
+        $search = $request->keyword;
+        $allJobs = Jobs::query()
+            ->where('name', 'LIKE', "%{$search}%")
+            ->orWhere('description', 'LIKE', "%{$search}%")
+            ->orWhere('description', 'LIKE', "%{$search}%")
+            ->get();
+
+        if(count($allJobs) > 0){
+            return response()->json(['status' => 200,  'alljobs'=> $allJobs]);
+        }
+        return response()->json(['status' => 400, 'alljobs'=> 'nothing found']);
+
     }
 
 
