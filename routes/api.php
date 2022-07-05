@@ -79,6 +79,9 @@ Route::post('/update_company_profile',[\App\Http\Controllers\CompanyController::
 Route::post('/get_agency',[AgencyController::class, 'get_agency_data' ] );
 Route::post('/update_agency_profile',[AgencyController::class, 'update_agency_profile' ] );
 
+// google auth save data
+Route::post('/update_google_data',[UserController::class, 'update_google_data' ] );
+
 
 // freelancer api
 Route::post('/get_freelancer',[FreelancerController::class, 'get_freelancer_data' ] );

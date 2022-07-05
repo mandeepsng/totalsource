@@ -30,6 +30,8 @@ class CreateUsersTable extends Migration
             $table->integer('role')->comment('roles => admin = 1, client = 2, freelancer = 3, agency = 4');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('google_email')->nullable();
+            $table->string('google_uid')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

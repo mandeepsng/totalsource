@@ -11,6 +11,7 @@ use App\Models\Proposal;
 use App\Http\Requests\StoreJobsRequest;
 use Mail;
 use App\Http\Controllers\MediaUploadController;
+use function PHPUnit\Framework\isNull;
 
 class JobsController extends Controller
 {
@@ -22,7 +23,7 @@ class JobsController extends Controller
     public function index()
     {
         $allJobs = Jobs::paginate(10);
-        return response()->json(['alljobs'=> $allJobs]);
+        return response()->json(['alljobs'=> $allJobs, 'status' => 200]);
     }
 
     /**
@@ -319,6 +320,11 @@ class JobsController extends Controller
 
     public function searchJobsListing(Request $request)
     {
+        if( empty($request->keyword) ){
+            $allJobs = Jobs::paginate(10);
+            return response()->json(['alljobs'=> $allJobs, 'status' => 300]);
+        }else{
+
         $search = $request->keyword;
         $allJobs = Jobs::query()
             ->where('name', 'LIKE', "%{$search}%")
@@ -326,10 +332,12 @@ class JobsController extends Controller
             ->orWhere('description', 'LIKE', "%{$search}%")
             ->get();
 
-        if(count($allJobs) > 0){
-            return response()->json(['status' => 200,  'alljobs'=> $allJobs]);
-        }
+            if(count($allJobs) > 0){
+                return response()->json(['status' => 200,  'alljobs'=> $allJobs]);
+            }
         return response()->json(['status' => 400, 'alljobs'=> 'nothing found']);
+        }
+
 
     }
 
