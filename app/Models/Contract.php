@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Jobs;
 
 class Contract extends Model
 {
@@ -16,4 +17,11 @@ class Contract extends Model
     {
         return $this->hasOne('App\Models\Jobs');
     }
+
+    public function getApproved_user_id($jobId){
+        $working_user_id = Contract::where('jobs_id', '=', $jobId )->pluck('freelancer_id')->first();
+            return $working_user_id;
+    }
+
+
 }

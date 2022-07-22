@@ -12,7 +12,11 @@ class MediaUploadController extends Controller
     {
 
 
-//        return response()->json(['message' => $request->image ]);
+        $oldImg = User::find($request->id);
+
+        if($oldImg->image != NULL){
+            unlink("images/".$oldImg->image);
+        }
 
 
         $request->validate([
@@ -27,7 +31,7 @@ class MediaUploadController extends Controller
         $userObj->image = $imageName;
 
         if($userObj->save()){
-            return response()->json(['message' => 'Image uploaded successfully']);
+            return response()->json([ 'image' => $userObj->image ,'message' => 'Image uploaded successfully']);
         }else{
             return response()->json( ['message' =>  'Something went wrong!']);
 

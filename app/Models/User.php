@@ -75,4 +75,26 @@ class User extends Authenticatable implements MustVerifyEmail
         return $name;
     }
 
+    static function uploadImage(Request $request)
+    {
+        $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        $imageName = time().'.'.$request->image->extension();
+
+        $request->image->move(public_path('images'), $imageName);
+
+        $userObj = User::find($request->id);
+        $userObj->image = $imageName;
+
+        if($userObj->save()){
+            return response()->json(['message' => 'Image uploaded successfully']);
+        }else{
+            return response()->json( ['message' =>  'Something went wrong!']);
+
+        }
+
+    }
+
 }

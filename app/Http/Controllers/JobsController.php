@@ -286,20 +286,24 @@ class JobsController extends Controller
             $proposal->save();
         }
 
+        $company = User::find( request('company_id') );
+        $working_user = User::find( request('freelancer_id') );
 
-        $contract->company_id = "22";
+        $contract->company_id = request('company_id');
         $contract->start_time = now();
         $contract->end_time = now();
         $contract->payment_type_id = "22";
         $contract->payment_amount = "change later";
+        $contract->conversation = json_encode([$company->google_uid, $working_user->google_uid ]);
 
         $job->contract()->save($contract);
 
         if($job){
-            return response()->json(['success',  'Contact Created Successfully!!']);
+
+            return response()->json([ 'conversation' => [$company->google_uid, $working_user->google_uid ] ,'status' => 200, 'message' => 'Contact Created Successfully!!', 'company_google_uid' => $company->google_uid , 'freelancer_google_uid' => $working_user->google_uid  ]);
         }else{
 
-            return response()->json(['data' => 'Something went wrong!']);
+            return response()->json([ 'status' => 400 , 'message' => 'Something went wrong!']);
 
         }
 

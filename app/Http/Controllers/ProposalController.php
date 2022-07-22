@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Proposal;
+use App\Models\Contract;
 use App\Models\Jobs;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -53,7 +54,7 @@ class ProposalController extends Controller
         $proposal->bidding_price = $bidding_price;
         $proposal->working_user_id = $working_user_id;
         $proposal->bidding_type = 'fixed';
-        $proposal->current_proposal_status = 'active';
+        $proposal->current_proposal_status = 0;
         $job->proposal()->save($proposal);
 
         if($job){
@@ -141,7 +142,7 @@ class ProposalController extends Controller
         $ids = [];
         $job_idsByFreelancer = Proposal::select('jobs_id')->where([
             ["working_user_id", "=", $id],
-        ])->get();
+        ])->paginate(10);
 
         foreach( $job_idsByFreelancer as $id ){
             $ids[] = $id->jobs_id;
@@ -154,8 +155,59 @@ class ProposalController extends Controller
             $proposal = jobs::find($job->id);
             $proposal->proposal;
             $data[]['data'] = $proposal;
+
         }
-        return response()->json(['alljobs' => $data]);
+        return response()->json(['alljobs' => $data, 'alldata' => $job_idsByFreelancer]);
+    }
+
+    public function get_approved_FreelancerJobBiddById($id)
+    {
+        $obj = new Proposal();
+        return $obj->get_jobs_approved_freelancer_by_id($id);
+    }
+
+    public function getFreelancerJobBiddById_not($id)
+    {
+        $ids = [];
+        $job_idsByFreelancer = Proposal::select('jobs_id')->where([
+            ["working_user_id", "=", $id],
+        ])->paginate(10);
+
+        foreach( $job_idsByFreelancer as $id ){
+            $ids[] = $id->jobs_id;
+        }
+
+        $alljobs = Jobs::find($ids);
+
+        $data = array();
+        $approvedData = array();
+        foreach( $alljobs as $job ){
+            $proposal = jobs::find($job->id);
+            $proposal->proposal;
+//            $data[]['data'] = $proposal;
+
+            $obj = new Contract;
+            $working_user_id = $obj->getApproved_user_id($job->id);
+
+            $data[]['data'] = [
+                'name' => $proposal->name,
+                'type' => $proposal->type,
+                'created_at' => $proposal->created_at,
+                'id' => $proposal->id,
+                'working_user_id' => $working_user_id,
+                'proposal_count' => count($proposal->proposal),
+            ];
+
+        }
+
+
+
+
+
+
+
+
+        return response()->json(['alljobs' => $data, 'alldata' => $job_idsByFreelancer]);
     }
 
 }

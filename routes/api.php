@@ -87,6 +87,7 @@ Route::post('/update_google_data',[UserController::class, 'update_google_data' ]
 Route::post('/get_freelancer',[FreelancerController::class, 'get_freelancer_data' ] );
 Route::post('/update_freelancer_profile',[FreelancerController::class, 'update_freelancer_profile' ] );
 Route::get('/all_bidd_of_freelancer/{id}',[ProposalController::class, 'getFreelancerJobBiddById' ] );
+Route::get('/approved_bidd_of_freelancer/{id}',[ProposalController::class, 'get_approved_FreelancerJobBiddById' ] );
 
 // proposal
 Route::post('/store_proposal',[ProposalController::class, 'store']);

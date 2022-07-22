@@ -23,6 +23,7 @@ class CreateContractsTable extends Migration
             $table->string('end_time');
             $table->string('payment_type_id');
             $table->string('payment_amount');
+            $table->string('conversation')->nullable();
             $table->timestamps();
             $table->foreign('jobs_id')->references('id')->on('jobs')->onDelete('cascade');
         });
