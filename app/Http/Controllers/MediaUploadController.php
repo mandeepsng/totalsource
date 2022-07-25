@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Company;
+use Illuminate\Support\Facades\Storage;
 
 class MediaUploadController extends Controller
 {
@@ -15,7 +16,13 @@ class MediaUploadController extends Controller
         $oldImg = User::find($request->id);
 
         if($oldImg->image != NULL){
-            unlink("images/".$oldImg->image);
+
+            $isExist = Storage::exists("images/".$oldImg->image);
+            if($isExist){
+                unlink("images/".$oldImg->image);
+
+            }
+
         }
 
 

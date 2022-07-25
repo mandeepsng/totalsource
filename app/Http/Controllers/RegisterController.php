@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Requests\StoreUserRequest;
 use App\Notifications\EmailVerification;
 use Illuminate\Database\Eloquent\Model;

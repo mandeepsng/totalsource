@@ -14,6 +14,7 @@ use App\Http\Controllers\{UserController,
     VerifyEmailController,
     PortfolioController
 };
+use App\Http\Controllers\API\ { ForgotPasswordController, ResetPasswordController };
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -99,6 +100,7 @@ Route::post('/check_exit_bid_by_id', [ProposalController::class, 'check_exit_bid
 Route::post('/create_contract', [JobsController::class, 'create_contract']);
 //Route::get('jobhiredornot/{id}', [JobsController::class, 'jobHiredOrNot']);
 
-
+Route::post('password/forgot-password', [ForgotPasswordController::class, 'sendResetLinkResponse'])->name('passwords.sent');
+Route::post('password/reset', [ResetPasswordController::class, 'sendResetResponse'])->name('passwords.reset');
 
 
