@@ -5,14 +5,18 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\PasswordReset;
 //use Illuminate\Support\Str;
+use Carbon\Carbon;
+use Illuminate\Contracts\Hashing\Hasher;
 
 class ForgotPasswordController extends Controller
 {
+
     protected function sendResetLinkResponse(Request $request)
     {
         $input = $request->only('email');
@@ -33,6 +37,20 @@ class ForgotPasswordController extends Controller
             //$message = $response == Password::RESET_LINK_SENT ? 'Mail send successfully' : GLOBAL_SOMETHING_WANTS_TO_WRONG;
         $response = ['status'=>$status,'message' => $message ];
         return response($response, 200);
+    }
+
+    public function check_reset_token(Request $request)
+    {
+
+        $token = DB::table('password_resets')
+            ->where('email','=',$request->email)
+            ->where('created_at','>',Carbon::now()->subHours(2))
+            ->first();
+
+        if(empty($token) || $token === null ){
+            return response()->json(['message' => 'Link Expried' , 'status' => 422 ]);
+        }
+        return response()->json(['message' => 'working', 'status' => 200 ]);
     }
 
 }

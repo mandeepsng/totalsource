@@ -102,5 +102,6 @@ Route::post('/create_contract', [JobsController::class, 'create_contract']);
 
 Route::post('password/forgot-password', [ForgotPasswordController::class, 'sendResetLinkResponse'])->name('passwords.sent');
 Route::post('password/reset', [ResetPasswordController::class, 'sendResetResponse'])->name('passwords.reset');
+Route::post('password/check_link_expire', [ForgotPasswordController::class, 'check_reset_token'])->name('passwords.check_reset_token');
 
 
