@@ -103,4 +103,25 @@ class User extends Authenticatable implements MustVerifyEmail
         $this->notify(new \App\Notifications\MailResetPasswordNotification($url));
     }
 
+
+
+    public function mannual_approval($id, $prop)
+    {
+        $userObj = User::find($id);
+        if($prop == true){
+            $userObj->second_approval = 1;
+        }else{
+            $userObj->second_approval = Null;
+        }
+
+        if($userObj->save()){
+            return ['prop' => $prop, 'save' => 1 , 'to_email' => $userObj['email']];
+        }else{
+            return 0;
+        }
+    }
+
+
+
+
 }

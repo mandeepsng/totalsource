@@ -11,6 +11,7 @@ use App\Models\User;
 use App\Models\Company;
 use App\Models\Agency;
 use App\Models\Freelancer;
+use Illuminate\Support\Facades\Mail;
 
 class SuperadminController extends Controller
 {
@@ -197,6 +198,47 @@ class SuperadminController extends Controller
     {
         $user = User::where('role', '=', '4')->get();
         return view('admin/agency-list')->with(['user' => $user]);
+    }
+
+
+    public function freelancer_mannual_approval()
+    {
+        $user = User::where('second_approval', '=', Null)->where('role', '=', 3)->get();
+//        dd($user);
+        return view('admin/freelancer-mannual-approval')->with(['user' => $user]);
+    }
+
+    public function agency_mannual_approval()
+    {
+        $user = User::where('second_approval', '=', Null)->where('role', '=', 4)->get();
+//        dd($user);
+        return view('admin/agency-mannual-approval')->with(['user' => $user]);
+    }
+
+
+    public function user_mannual_approval(Request $request)
+    {
+        $obj = new User();
+        $res = $obj->mannual_approval($request->id, $request->prop);
+
+        if($res['save'] == 1){
+            $this->send_email( $res['to_email'] , 'Mannual reviewed', 'Your account approved Successfully !' );
+            return response()->json(['message' => 'User approved Successfully !' , 'prop' => $res['prop'] ]);
+        }
+        return response()->json(['message' => 'something went wrong' ]);
+
+    }
+
+    public function send_email($to_email, $subject, $message){
+
+        $details = [
+            'to_email' => $to_email,
+            'subject' => $subject,
+            'message' => $message,
+        ];
+
+        \Mail::to($to_email)->send(new \App\Mail\SendEmail($details));
+
     }
 
 

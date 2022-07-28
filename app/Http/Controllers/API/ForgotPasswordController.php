@@ -41,7 +41,7 @@ class ForgotPasswordController extends Controller
 
     public function check_reset_token(Request $request)
     {
-
+//        return response()->json(['message' => $request->token ]);
         $token = DB::table('password_resets')
             ->where('email','=',$request->email)
             ->where('created_at','>',Carbon::now()->subHours(2))
@@ -51,6 +51,24 @@ class ForgotPasswordController extends Controller
             return response()->json(['message' => 'Link Expried' , 'status' => 422 ]);
         }
         return response()->json(['message' => 'working', 'status' => 200 ]);
+    }
+
+
+    public function checkToken(Request $request)
+    {
+
+
+        $password_resets = DB::table('password_resets')->where('email', $request->email)->first();
+
+        $v = Hash::check($request->token, $password_resets->token);
+        if ($password_resets &&  Hash::check($request->token, $password_resets->token)) {
+            $createdAt = Carbon::parse($password_resets->created_at);
+//            if (!Carbon::now()->greaterThan($createdAt->addMinutes(config('auth.passwords.users.expire')))) {
+//                return \response()->json()->setStatusCode(200);
+//            }
+        }
+
+        return \response()->json()->setStatusCode(419);
     }
 
 }

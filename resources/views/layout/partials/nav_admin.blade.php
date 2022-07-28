@@ -15,12 +15,14 @@
                                 <a href="#"><i class="fe fe-user"></i> <span> Freelancer </span> <span class="menu-arrow"></span></a>
                                 <ul style="display: none;">
                                     <li><a class="{{ Request::is('freelancer-list') ? 'active' : '' }}" href="{{ url('freelancer-list') }}"> All Freelancer </a></li>
+                                    <li><a class="{{ Request::is('freelancer-mannual-approval') ? 'active' : '' }}" href="{{ url('freelancer-mannual-approval') }}"> Mannual Approval </a></li>
                                 </ul>
                             </li>
                             </li><li class="submenu">
                                 <a href="#"><i class="fe fe-user"></i> <span> Agency </span> <span class="menu-arrow"></span></a>
                                 <ul style="display: none;">
                                     <li><a class="{{ Request::is('agency-list') ? 'active' : '' }}" href="{{ url('agency-list') }}"> All Agency </a></li>
+                                    <li><a class="{{ Request::is('agency-mannual-approval') ? 'active' : '' }}" href="{{ url('agency-mannual-approval') }}"> Mannual Approval </a></li>
                                 </ul>
                             </li>
 

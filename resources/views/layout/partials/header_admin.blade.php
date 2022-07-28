@@ -36,7 +36,7 @@
 			<ul class="nav user-menu">
 
 				<!-- Notifications -->
-				<li class="nav-item dropdown noti-dropdown">
+				<li class="nav-item dropdown noti-dropdown" style="display: none">
 					<a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
 						<i class="fe fe-bell"></i> <span class="badge badge-pill">3</span>
 					</a>
@@ -119,12 +119,12 @@
 								<img src="../assets_admin/img/profiles/avatar-01.jpg" alt="User Image" class="avatar-img rounded-circle">
 							</div>
 							<div class="user-text">
-								<h6>Ryan Taylor</h6>
+								<h6>Super Admin</h6>
 								<p class="text-muted mb-0">Administrator</p>
 							</div>
 						</div>
-						<a class="dropdown-item" href="profile">My Profile</a>
-						<a class="dropdown-item" href="settings">Settings</a>
+{{--						<a class="dropdown-item" href="profile">My Profile</a>--}}
+{{--						<a class="dropdown-item" href="settings">Settings</a>--}}
 						<a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">Logout</a>
 

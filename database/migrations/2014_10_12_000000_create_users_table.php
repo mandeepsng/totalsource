@@ -32,6 +32,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('google_email')->nullable();
             $table->string('google_uid')->nullable();
+            $table->string('second_approval')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

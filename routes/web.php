@@ -150,14 +150,34 @@ Route::middleware(['is_admin'])->group( function () {
     Route::get('client-job/{id}', [SuperadminController::class, 'allProposalByJobId'])->name('super.allProposalByJobId');
     Route::get('user/{id}', [SuperadminController::class, 'userData'])->name('super.userData');
 
+
     // freelancer
     Route::get('freelancer-list', [SuperadminController::class, 'allFreelancerList'])->name('super.allFreelancerList');
     Route::get('freelancer-project/{id}', [SuperadminController::class, 'freelancerJobsById'])->name('super.freelancerJobsById');
+    Route::get('freelancer-mannual-approval', [SuperadminController::class, 'freelancer_mannual_approval'])->name('super.freelancer_mannual_approval');
+    Route::post('user_mannual_approval', [SuperadminController::class, 'user_mannual_approval'])->name('super.user_mannual_approval');
+
 
     //agency
     Route::get('agency-list', [SuperadminController::class, 'allAgencyList'])->name('super.allAgencyList');
+    Route::get('agency-mannual-approval', [SuperadminController::class, 'agency_mannual_approval'])->name('super.agency_mannual_approval');
 
 
+});
+
+
+Route::get('send-mail', function () {
+
+    $subject = 'Mail from Rvs Dev';
+
+    $details = [
+        'subject' => $subject,
+        'message' => 'This is for testing email using smtp'
+    ];
+
+    \Mail::to('towici5237@aregods.com')->send(new \App\Mail\SendEmail($details));
+
+    dd("Email is Sent.");
 });
 
 
