@@ -1,11 +1,11 @@
 
 @extends('layout.mainlayout_admin')
-@section('content')		
+@section('content')
 			<!-- Page Wrapper -->
             <div class="page-wrapper">
-			
+
                 <div class="content container-fluid">
-					
+
 					<!-- Page Header -->
 					<div class="page-header">
 						<div class="row">
@@ -32,7 +32,7 @@
 										</div>
 									</div>
 									<div class="dash-widget-info">
-										<h6 class="text-muted">Doctors</h6>
+										<h6 class="text-muted">Clients</h6>
 										<div class="progress progress-sm">
 											<div class="progress-bar bg-primary w-50"></div>
 										</div>
@@ -52,8 +52,8 @@
 										</div>
 									</div>
 									<div class="dash-widget-info">
-										
-										<h6 class="text-muted">Patients</h6>
+
+										<h6 class="text-muted">Freelancers</h6>
 										<div class="progress progress-sm">
 											<div class="progress-bar bg-success w-50"></div>
 										</div>
@@ -73,8 +73,8 @@
 										</div>
 									</div>
 									<div class="dash-widget-info">
-										
-										<h6 class="text-muted">Appointment</h6>
+
+										<h6 class="text-muted">Agency</h6>
 										<div class="progress progress-sm">
 											<div class="progress-bar bg-danger w-50"></div>
 										</div>
@@ -94,7 +94,7 @@
 										</div>
 									</div>
 									<div class="dash-widget-info">
-										
+
 										<h6 class="text-muted">Revenue</h6>
 										<div class="progress progress-sm">
 											<div class="progress-bar bg-warning w-50"></div>
@@ -106,7 +106,7 @@
 					</div>
 					<div class="row">
 						<div class="col-md-12 col-lg-6">
-						
+
 							<!-- Sales Chart -->
 							<div class="card card-chart">
 								<div class="card-header">
@@ -117,10 +117,10 @@
 								</div>
 							</div>
 							<!-- /Sales Chart -->
-							
+
 						</div>
 						<div class="col-md-12 col-lg-6">
-						
+
 							<!-- Invoice Chart -->
 							<div class="card card-chart">
 								<div class="card-header">
@@ -131,12 +131,12 @@
 								</div>
 							</div>
 							<!-- /Invoice Chart -->
-							
-						</div>	
+
+						</div>
 					</div>
-					<div class="row">
+					<div class="row" style="display: none">
 						<div class="col-md-6 d-flex">
-						
+
 							<!-- Recent Orders -->
 							<div class="card card-table flex-fill">
 								<div class="card-header">
@@ -245,10 +245,10 @@
 								</div>
 							</div>
 							<!-- /Recent Orders -->
-							
+
 						</div>
 						<div class="col-md-6 d-flex">
-						
+
 							<!-- Feed Activity -->
 							<div class="card  card-table flex-fill">
 								<div class="card-header">
@@ -258,11 +258,11 @@
 									<div class="table-responsive">
 										<table class="table table-hover table-center mb-0">
 											<thead>
-												<tr>													
+												<tr>
 													<th>Patient Name</th>
 													<th>Phone</th>
 													<th>Last Visit</th>
-													<th>Paid</th>													
+													<th>Paid</th>
 												</tr>
 											</thead>
 											<tbody>
@@ -327,12 +327,12 @@
 								</div>
 							</div>
 							<!-- /Feed Activity -->
-							
+
 						</div>
 					</div>
-					<div class="row">
+					<div class="row" style="display: none">
 						<div class="col-md-12">
-						
+
 							<!-- Recent Orders -->
 							<div class="card card-table">
 								<div class="card-header">
@@ -391,7 +391,7 @@
 															<a href="profile">Travis Trimble </a>
 														</h2>
 													</td>
-													
+
 													<td>5 Nov 2019 <span class="text-primary d-block">11.00 AM - 11.35 AM</span></td>
 													<td>
 														<div class="status-toggle">
@@ -467,7 +467,7 @@
 															<a href="profile">Gina Moore</a>
 														</h2>
 													</td>
-													
+
 													<td>15 Nov 2019 <span class="text-primary d-block">1.00 PM - 1.15 PM</span></td>
 													<td>
 														<div class="status-toggle">
@@ -485,15 +485,14 @@
 								</div>
 							</div>
 							<!-- /Recent Orders -->
-							
+
 						</div>
 					</div>
-					
-				</div>			
+
+				</div>
 			</div>
 			<!-- /Page Wrapper -->
-		
+
         </div>
 		<!-- /Main Wrapper -->
 	   @endsection
-	  

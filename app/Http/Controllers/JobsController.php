@@ -39,6 +39,7 @@ class JobsController extends Controller
                 'hiring_client_id' => $val->hiring_client_id,
                 'description' => $val->description,
                 'status' => $val->status,
+                'skill_ids' => $val->skill_ids,
                 'clientImage' => @$clientImage,
             );
         }
@@ -126,7 +127,7 @@ class JobsController extends Controller
 
     public function clientJobViewById($id)
     {
-        $alljobs = Jobs::find($id);
+        $alljobs = Jobs::find($id)->first();
         $jobs = $alljobs->proposal;
         $data = [];
 
@@ -135,6 +136,22 @@ class JobsController extends Controller
         }else{
             $hired = 0;
         }
+
+            $companylogo = User::getUserProfileimage($alljobs->hiring_client_id);
+
+            $alljobsdata = array(
+                'image' => $companylogo,
+                'company_name' => $alljobs->company_name,
+                'id' => $alljobs->id,
+                'description' => $alljobs->description,
+                'expected_duration' => $alljobs->expected_duration,
+                'hiring_client_id' => $alljobs->hiring_client_id,
+                'location' => $alljobs->location,
+                'name' => $alljobs->name,
+                'salary' => $alljobs->salary,
+                'status' => $alljobs->status,
+                'type' => $alljobs->type,
+            );
 
         foreach($jobs as $k => $val){
             $freelancerName = User::getUserName($val->working_user_id);
@@ -155,7 +172,7 @@ class JobsController extends Controller
             );
         }
 
-        return response()->json(['alljobs' => $alljobs, 'proposal' => $data, 'hired' => $hired ]);
+        return response()->json(['alljobs' => $alljobsdata, 'proposal' => $data, 'hired' => $hired ]);
 
     }
 
