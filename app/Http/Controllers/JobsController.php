@@ -22,8 +22,28 @@ class JobsController extends Controller
      */
     public function index()
     {
-        $allJobs = Jobs::paginate(10);
-        return response()->json(['alljobs'=> $allJobs, 'status' => 200]);
+        $data = [];
+        $pagination_data = Jobs::paginate(10);
+        foreach($pagination_data as $k => $val){
+            $clientImage = User::getUserProfileimage($val->hiring_client_id);
+//            echo "<pre>";
+//            print_r($val);
+//            echo "</pre>";
+            $data[] = array(
+                'id' => $val->id,
+                'name' => $val->name,
+                'location' => $val->location,
+                'type' => $val->type,
+                'salary' => $val->salary,
+                'company_name' => $val->company_name,
+                'hiring_client_id' => $val->hiring_client_id,
+                'description' => $val->description,
+                'status' => $val->status,
+                'clientImage' => @$clientImage,
+            );
+        }
+
+        return response()->json(['alljobs'=> $data, 'pagination_data' => $pagination_data , 'status' => 200]);
     }
 
     /**

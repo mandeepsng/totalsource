@@ -16,6 +16,14 @@ class CompanyController extends Controller
         return response()->json(['user'=> $user]);
     }
 
+    public function get_company_data_by_id($id)
+    {
+        $user = User::find($id);
+        $company = $user->company;
+
+        return response()->json(['user'=> $user]);
+    }
+
     public function update_company_profile(Request $request)
     {
         $request->validate([

@@ -26,6 +26,14 @@ class FreelancerController extends Controller
         return response()->json(['user'=> $user]);
     }
 
+    public function get_freelancer_data_by_userid($id)
+    {
+        $user = User::find($id);
+        $user->freelancer;
+
+        return response()->json(['user'=> $user]);
+    }
+
     public function update_freelancer_profile(Request $request)
     {
         $request->validate([

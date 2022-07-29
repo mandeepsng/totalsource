@@ -75,6 +75,13 @@ class User extends Authenticatable implements MustVerifyEmail
         return $name;
     }
 
+    static function getUserProfileimage($id)
+    {
+        $res = self::find($id)->get()->first();
+        $name = $res->image;
+        return $name;
+    }
+
     static function uploadImage(Request $request)
     {
         $request->validate([

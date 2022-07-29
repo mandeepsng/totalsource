@@ -74,6 +74,7 @@ Route::post('profileImageInsert',[MediaUploadController::class, 'profileImageIns
 Route::post('/job_store',[JobsController::class, 'store']);
 
 Route::post('/get_company',[\App\Http\Controllers\CompanyController::class, 'get_company_data' ] );
+Route::get('/get_company/{id}',[\App\Http\Controllers\CompanyController::class, 'get_company_data_by_id' ] );
 Route::post('/update_company_profile',[\App\Http\Controllers\CompanyController::class, 'update_company_profile' ] );
 
 // agency api
@@ -86,6 +87,7 @@ Route::post('/update_google_data',[UserController::class, 'update_google_data' ]
 
 // freelancer api
 Route::post('/get_freelancer',[FreelancerController::class, 'get_freelancer_data' ] );
+Route::get('/get_freelancer/{id}',[FreelancerController::class, 'get_freelancer_data_by_userid' ] );
 Route::post('/update_freelancer_profile',[FreelancerController::class, 'update_freelancer_profile' ] );
 Route::get('/all_bidd_of_freelancer/{id}',[ProposalController::class, 'getFreelancerJobBiddById' ] );
 Route::get('/approved_bidd_of_freelancer/{id}',[ProposalController::class, 'get_approved_FreelancerJobBiddById' ] );

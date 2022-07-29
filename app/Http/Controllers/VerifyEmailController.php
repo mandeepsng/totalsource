@@ -41,7 +41,7 @@ class VerifyEmailController extends Controller
         }
 
         return [
-            'message'=>'Email has been verified'
+            'message'=>'Already email verified'
         ];
     }
 
