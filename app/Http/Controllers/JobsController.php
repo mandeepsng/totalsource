@@ -26,6 +26,7 @@ class JobsController extends Controller
         $pagination_data = Jobs::paginate(10);
         foreach($pagination_data as $k => $val){
             $clientImage = User::getUserProfileimage($val->hiring_client_id);
+            $company_name = Company::getCompanyNameById($val->hiring_client_id);
 //            echo "<pre>";
 //            print_r($val);
 //            echo "</pre>";
@@ -35,7 +36,7 @@ class JobsController extends Controller
                 'location' => $val->location,
                 'type' => $val->type,
                 'salary' => $val->salary,
-                'company_name' => $val->company_name,
+                'company_name' => @$company_name,
                 'hiring_client_id' => $val->hiring_client_id,
                 'description' => $val->description,
                 'status' => $val->status,
@@ -127,9 +128,10 @@ class JobsController extends Controller
 
     public function clientJobViewById($id)
     {
-        $alljobs = Jobs::find($id)->first();
+        $alljobs = Jobs::find($id);
         $jobs = $alljobs->proposal;
         $data = [];
+
 
         if($alljobs->status == 1 ){
             $hired = 1;
