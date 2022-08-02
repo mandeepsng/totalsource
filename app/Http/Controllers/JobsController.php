@@ -384,6 +384,17 @@ class JobsController extends Controller
 
     }
 
+    public function searchJobsbyInputArray(Request $request){
+        $search = $request->changefilter;
+
+        $allJobs = Jobs::whereIn('type', $search )->paginate(10);
+
+        if(count($allJobs) > 0){
+            return response()->json(['status' => 200,  'alljobs'=> $allJobs]);
+        }
+        return response()->json(['status' => 400, 'alljobs'=> 'nothing found']);
+    }
+
 
 
 }

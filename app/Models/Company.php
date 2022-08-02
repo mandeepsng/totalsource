@@ -18,8 +18,10 @@ class Company extends Model
 
     static function getCompanyNameById($id)
     {
-        $company = self::find($id)->get()->first();
-        return $company->company_name;
+        if($id){
+            $company = self::where('user_id', $id)->get()->first();
+            return @$company->company_name;
+        }
     }
 
 }

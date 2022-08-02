@@ -56,6 +56,7 @@ Route::post('/login', [ RegisterController::class, 'process_login' ] );
 
 Route::get('job_listing',[JobsController::class, 'index']);
 Route::post('job_search',[JobsController::class, 'searchJobsListing']);
+Route::post('job_search_by_array_input',[JobsController::class, 'searchJobsbyInputArray']);
 Route::post('get_client_job_post',[JobsController::class, 'getClientJobPost']);
 Route::post('show_job_by_id',[JobsController::class, 'show_job_by_id']);
 Route::get('job_view/{id}',[JobsController::class, 'jobViewById']);
