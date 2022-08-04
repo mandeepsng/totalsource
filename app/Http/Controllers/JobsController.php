@@ -358,7 +358,7 @@ class JobsController extends Controller
             $hired = '0';
         }
 
-        return response()->json(['hired' => '$hired' ]);
+        return response()->json(['hired' => $hired ]);
     }
 
     public function searchJobsListing(Request $request)
@@ -386,6 +386,9 @@ class JobsController extends Controller
 
     public function searchJobsbyInputArray(Request $request){
         $search = $request->changefilter;
+//        $priceFilter = $request->priceFilter;
+
+//        sleep(1);
 
         $allJobs = Jobs::whereIn('type', $search )->paginate(10);
 
