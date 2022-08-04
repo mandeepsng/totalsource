@@ -224,7 +224,8 @@ table.table td h2 a {
 	color: #333;
 }
 table.table td h2 a:hover {
-	color: #00d0f1;
+	/*color: #00d0f1;*/
+	color: #1ab174;
 }
 table.table td h2 span {
 	color: #888;
@@ -870,8 +871,10 @@ button.bg-danger:hover {
 	box-shadow: unset;
 }
 .page-item.active .page-link {
-	background-color: #00d0f1;
-	border-color: #00d0f1;
+	/*background-color: #00d0f1;*/
+	/*border-color: #00d0f1;*/
+    background-color: #1ab174;
+    border-color: #1ab174;
 }
 .dropdown-menu {
 	border: 1px solid rgba(0, 0, 0, 0.1);
@@ -1496,7 +1499,7 @@ button.bg-danger:hover {
 }
 .user-menu .dropdown-menu .dropdown-item:hover {
 	color: #fff;
-    background: #00d0f1;
+    background: #1ab174;
 }
 .header .dropdown-menu > li > a:focus,
 .header .dropdown-menu > li > a:hover {
@@ -1667,7 +1670,7 @@ html.menu-opened body {
 -----------------------*/
 
 .sidebar {
-    background-color: #1b5a90;
+    background-color: #1ab174;
    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);*/
     bottom: 0;
     left: 0;
@@ -1706,11 +1709,14 @@ html.menu-opened body {
 	padding: 0 20px;
 }
 .sidebar-menu li a:hover {
-    color: #5ae8ff;
+    /*color: #5ae8ff;*/
+    color: #fff;
 }
 .sidebar-menu > ul > li > a:hover {
-	background-color: #19c1dc;
-    color: #fff;
+	/*background-color: #19c1dc;*/
+    /*color: #fff;*/
+    background-color: #fff;
+    color: #1ab174;
 }
 .sidebar-menu > ul > li.active > a:hover {
     background-color: #19c1dc;
@@ -1747,8 +1753,9 @@ html.menu-opened body {
     padding: 10px 15px;
 }
 .sidebar-menu ul ul a.active {
-	color: #20e3ff;
-	text-decoration: underline;
+	/*color: #20e3ff;*/
+    color: #fff;
+    text-decoration: underline;
 }
 .mobile_btn {
 	display: none;
