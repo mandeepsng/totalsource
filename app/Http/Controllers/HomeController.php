@@ -30,6 +30,11 @@ class HomeController extends Controller
     public function notallowed()
     {
 //        return view('adminadmin.error-404');
+        $user = Auth::user();
+
+        if($user->role === 1){
+            return redirect()->route('super.adminHome');
+        }
         return view('home');
     }
 

@@ -197,7 +197,7 @@ textarea.form-control {
 }
 .table-nowrap td,
 .table-nowrap th {
-	white-space: nowrap
+ 	white-space: nowrap
 }
 .table.dataTable {
 	border-collapse: collapse !important;
