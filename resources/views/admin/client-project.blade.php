@@ -47,7 +47,7 @@
                                                     <td class="text-end"> <a href="{{ route('super.allProposalByJobId', ['id' => $j->id] )  }}">view all</a></td>
 												</tr>
                                                 @empty
-                                                    <tr> <td> No Bid yet </td></tr>
+                                                    <tr> <td> No Data Found </td></tr>
                                             @endforelse
 
 											</tbody>

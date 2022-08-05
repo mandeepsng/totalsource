@@ -45,7 +45,7 @@
 													<td>{{ ($j['current_proposal_status'] == 1)? 'Yes' : 'No' }}</td>
 												</tr>
                                                 @empty
-                                                    <tr> <td> No Bid yet </td></tr>
+                                                    <tr> <td>No Data Found </td></tr>
                                             @endforelse
 
 											</tbody>

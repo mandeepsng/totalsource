@@ -53,7 +53,7 @@
                                                     <td class="text-end">$250.00</td>
 												</tr>
                                                 @empty
-                                                    <tr> <td> No Bid yet </td> </tr>
+                                                    <tr> <td> No Data Found </td> </tr>
 
 
                                             @endforelse

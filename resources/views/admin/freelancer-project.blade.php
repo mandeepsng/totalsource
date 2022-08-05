@@ -47,7 +47,7 @@
                                                 <td class="text-end"> <a href="{{ route('super.userData', ['id' => $j->hiring_client_id] )  }}">View company </a></td>
                                             </tr>
                                         @empty
-                                            <tr> <td> No Bid yet </td></tr>
+                                            <tr> <td> No Data Found </td></tr>
                                         @endforelse
 
                                         </tbody>
