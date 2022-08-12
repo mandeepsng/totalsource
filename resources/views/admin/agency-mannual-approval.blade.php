@@ -54,7 +54,7 @@
                                                     </div> </td>
                                             </tr>
                                         @empty
-                                            <tr> <td> No Data Found </td> </tr>
+                                            <tr> <td> No Data Found  </td> </tr>
 
 
                                         @endforelse

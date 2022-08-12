@@ -32,7 +32,8 @@ class VerifyEmailController extends Controller
     {
         if ($request->user()->hasVerifiedEmail()) {
             return [
-                'message' => 'Email already verified'
+                'message' => 'Email already verified',
+                'status' => 200
             ];
         }
 
@@ -41,7 +42,8 @@ class VerifyEmailController extends Controller
         }
 
         return [
-            'message'=>'Already email verified'
+            'message'=>'Email verified now',
+            'status' => 400
         ];
     }
 
