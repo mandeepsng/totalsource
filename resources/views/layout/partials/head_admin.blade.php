@@ -104,7 +104,7 @@
 
             title>Totally Outsourcing - Pending Blog Page</title>
             @endif
-            <link rel="shortcut icon" type="image/x-icon" href="{{asset('assets_admin/img/favicon.png')}}">
+            <link rel="shortcut icon" type="image/x-icon" href="{{asset('assets_admin/img/favicon.svg')}}">
 		<!-- Bootstrap CSS -->
         <link rel="stylesheet" href="{{asset('assets_admin/css/bootstrap.min.css')}}">
 
