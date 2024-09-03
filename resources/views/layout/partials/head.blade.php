@@ -3,7 +3,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
 		<title>Totally Outsourcing</title>
 		<!-- Favicons -->
-		<link type="image/x-icon" href="assets/img/favicon.png" rel="icon">
+		<link type="image/x-icon" href="assets/img/favicon.svg" rel="icon">
 		<!-- Bootstrap CSS -->
 		<link rel="stylesheet" href="assets/css/bootstrap.min.css">
 		<!-- Fontawesome CSS -->
