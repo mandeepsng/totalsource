@@ -12,7 +12,8 @@ use App\Http\Controllers\{UserController,
     ProposalController,
     ContractController,
     VerifyEmailController,
-    PortfolioController
+    PortfolioController,
+    ConversationController,
 };
 use App\Http\Controllers\API\ { ForgotPasswordController, ResetPasswordController };
 /*
@@ -109,3 +110,7 @@ Route::post('password/check_link_expire', [ForgotPasswordController::class, 'che
 Route::post('password/checkToken', [ForgotPasswordController::class, 'checkToken'])->name('passwords.checkToken');
 
 
+// chat api
+
+Route::post('chat/register', [ ConversationController::class, 'create' ] )->name('chat.create');
+Route::get('chat/show/{id}', [ ConversationController::class, 'show' ] )->name('chat.show');

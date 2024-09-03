@@ -97,7 +97,7 @@ input:-webkit-autofill:focus {
     height: 40px;
 }
 .form-control:focus {
-	border-color: #1ab174;
+	border-color: #5448ce;
 	box-shadow: none;
 	outline: 0 none;
 }
@@ -484,16 +484,16 @@ button.bg-danger:hover {
     border-color: #1ab174!important;
 }
 .btn-primary {
-	background-color: #1ab174;
-    border: 1px solid #1ab174;
+	background-color: #5448ce;
+    border: 1px solid #5448ce;
 }
 .btn-primary:hover,
 .btn-primary:focus,
 .btn-primary.active,
 .btn-primary:active,
 .open > .dropdown-toggle.btn-primary {
-	background-color: #19c1dc;
-	border: 1px solid #19c1dc;
+	background-color: #3f33bd;
+	border: 1px solid #3f33bd;
 }
 .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
     color: #fff;
@@ -508,8 +508,8 @@ button.bg-danger:hover {
 .open > .dropdown-toggle.btn-primary.focus,
 .open > .dropdown-toggle.btn-primary:focus,
 .open > .dropdown-toggle.btn-primary:hover {
-	background-color: #19c1dc;
-	border: 1px solid #19c1dc;
+	background-color: #3f33bd;
+	border: 1px solid #3f33bd;
 }
 .btn-primary.active:not(:disabled):not(.disabled),
 .btn-primary:active:not(:disabled):not(.disabled),
@@ -2035,7 +2035,8 @@ html.menu-opened body {
 }
 .login-wrapper .loginbox .login-left {
     align-items: center;
-    background: linear-gradient(180deg, #1b5a90, #1ab174);
+    /* background: linear-gradient(180deg, #1b5a90, #1ab174); */
+    background: #1d292e;
     border-radius: 6px 0 0 6px;
     flex-direction: column;
     justify-content: center;

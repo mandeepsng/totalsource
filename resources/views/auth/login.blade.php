@@ -6,7 +6,7 @@
             <div class="container">
                 <div class="loginbox">
                     <div class="login-left">
-                        <img class="img-fluid" src="https://totallyoutsourcing.vercel.app/_next/static/media/logo.14e4b308.png" alt="Logo">
+                        <img class="img-fluid" src="{{ asset('assets_admin/img/logo-light.svg') }}" alt="Logo">
                     </div>
                     <div class="login-right">
                         <div class="login-right-wrap">
